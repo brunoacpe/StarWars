@@ -4,6 +4,7 @@ package br.com.letscode.Controller;
 import br.com.letscode.DAO.RebeldesDAO;
 import br.com.letscode.Model.Rebelde;
 import br.com.letscode.Services.RebeldesServices;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,14 +15,16 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-@RestController
+
 @RequestMapping("/rebeldes")
+@RestController
 public class RebeldesController {
 
     private RebeldesServices rebeldesServices;
 
+    @Autowired
     public RebeldesController(RebeldesServices rebeldesServices){
-        rebeldesServices = rebeldesServices;
+        this.rebeldesServices = rebeldesServices;
     }
 
     @GetMapping
@@ -39,6 +42,10 @@ public class RebeldesController {
         novoRebelde.setLatitude(rebelde.getLatitude());
         novoRebelde.setLongitude(rebelde.getLongitude());
         novoRebelde.setNomeGalaxia(rebelde.getNomeGalaxia());
+        novoRebelde.setArma(rebelde.getArma());
+        novoRebelde.setMunicao(rebelde.getMunicao());
+        novoRebelde.setComida(rebelde.getComida());
+        novoRebelde.setAgua(rebelde.getAgua());
         novoRebelde.setTraitor(false);
         return rebeldesServices.criarRebelde(novoRebelde);
     }

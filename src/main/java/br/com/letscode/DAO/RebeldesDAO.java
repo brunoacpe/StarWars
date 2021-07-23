@@ -15,7 +15,7 @@ import java.util.List;
 @Component
 public class RebeldesDAO {
 
-    private String caminho = "src\\main\\java\\Files\\rebeldes.txt";
+    private String caminho = "src\\main\\java\\br\\com\\letscode\\Files\\rebeldes.txt";
     private Path pathRebeldes;
     @PostConstruct
     public void init(){
@@ -39,6 +39,6 @@ public class RebeldesDAO {
 
     private String formatar(Rebelde novoRebelde) {
         //TODO -- ARRUMAR ESTE MÉTODO.
-        return String.format("%s;%s;",novoRebelde.getNome(),novoRebelde.getGenero());
+        return String.format("%s;%s;%s;%s;%s;%s;%s;%s;%s;%s\r\n",novoRebelde.getNome(),novoRebelde.getGenero(),novoRebelde.getNomeGalaxia(),novoRebelde.getLatitude(),novoRebelde.getLongitude(),novoRebelde.getComida(),novoRebelde.getArma(),novoRebelde.getMunicao(),novoRebelde.getAgua(),novoRebelde.isTraitor());
     }
 }

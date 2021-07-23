@@ -19,7 +19,10 @@ public class Rebelde {
     private String nomeGalaxia;
     private Long latitude;
     private Long longitude;
-    private List<String> inventario;
+    private Integer arma;
+    private Integer municao;
+    private Integer agua;
+    private Integer comida;
     private boolean isTraitor;
 
 }
