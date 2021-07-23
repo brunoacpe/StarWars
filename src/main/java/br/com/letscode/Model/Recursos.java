@@ -16,4 +16,5 @@ public class Recursos {
     private Integer municao;
     private Integer agua;
     private Integer comida;
+
 }

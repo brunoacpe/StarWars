@@ -7,15 +7,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
 import java.io.IOException;
 
 @RestController
 @RequestMapping("/reportar")
 public class ReportsController {
 
-    //CONTROLLER QUE IRA FAZER OS REPORTS.
     private RebeldesServices rebeldesServices;
+
     @Autowired
     public ReportsController(RebeldesServices rebeldesServices){
         this.rebeldesServices = rebeldesServices;
@@ -25,4 +24,5 @@ public class ReportsController {
     public String reportarRebelde(@RequestParam String nomeReportador, @RequestParam String nomeReportado) throws IOException {
         return rebeldesServices.reportarRebelde(nomeReportador,nomeReportado);
     }
+
 }

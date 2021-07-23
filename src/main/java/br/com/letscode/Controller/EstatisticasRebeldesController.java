@@ -23,9 +23,11 @@ public class EstatisticasRebeldesController {
     /*
       Pontos perdidos devido a traidores.
       */
+
     @GetMapping
     @RequestMapping("/traidores")
     public String getPorcentagemTraidores(){
+
         return "A porcentagem de traidores na galaxia é de : "+rebeldesServices.getPorcentagemTraidores()+ "%";
     }
 

@@ -28,6 +28,7 @@ public class RebeldesDAO {
     public void init(){
         pathRebeldes = Paths.get(caminho);
     }
+
     public List<Rebelde> lerArquivo() {
 
         List<Rebelde> rebeldesList = new ArrayList<>();
@@ -59,6 +60,7 @@ public class RebeldesDAO {
         novoRebelde.setTraitor(Boolean.parseBoolean(st.nextToken()));
         return novoRebelde;
     }
+
     public Rebelde persistirRebelde(Rebelde novoRebelde) {
 
         try(var bf = Files.newBufferedWriter(pathRebeldes, StandardOpenOption.APPEND)){
@@ -83,18 +85,26 @@ public class RebeldesDAO {
         if(traidoresList.isEmpty()){
             //todo -- retornar erro que diz que não existem traidores na galaxia.
         }
+        //TODO -- CALCULO DE PORCENTAGEM DE TRAIDORES >>
         float porcentagemTraidores = (traidoresList.size()*100)/(rebeldeList.size()*100);
         return porcentagemTraidores;
     }
 
     public float getPorcentagemRebeldes(){
         List<Rebelde> rebeldeList = lerArquivo();
+        List<Rebelde> realmenteRebeldeList = rebeldeList
+                .stream()
+                .filter(r -> !(r.isTraitor()))
+                .collect(Collectors.toList());
+        //TODO --- CALCULO DE PORCENTAGEM DE REBELDES NA LISTA;
+
         int numeroTotal = rebeldeList.size()*100;
         float numeroTraidores = getPorcentagemTraidores();
         return numeroTotal-numeroTraidores;
     }
 
     public List<Integer> getQuantidadeMedia() {
+
         List<Rebelde> rebeldeList = lerArquivo();
 
         List<Rebelde> listaSemTraidores = rebeldeList
@@ -107,7 +117,8 @@ public class RebeldesDAO {
                 .map(Rebelde::getRecursos)
                 .map(Recursos::getArma)
                 .collect(Collectors.toList());
-        var armas =somarListFazerMedia(listArmas);
+
+        var armas = somarListFazerMedia(listArmas);
 
         List<Integer> listMunicao = listaSemTraidores
                 .stream()
@@ -129,7 +140,7 @@ public class RebeldesDAO {
                 .map(Recursos::getAgua)
                 .collect(Collectors.toList());
         var agua = somarListFazerMedia(listAgua);
-        //TODO -- AINDA ARRUMAR ESTE MÉTODO.
+
         List<Integer> list = List.of(armas,municao,comida,agua);
         return list;
     }
@@ -167,8 +178,9 @@ public class RebeldesDAO {
                 r.setReports(r.getReports()+1);
             }
         }
+        //TODO --- CHECAR SE JA TEM 3 REPORTS
         apagarArquivo();
         escreverListaNoArquivo(rebeldeList);
-        return "Rebelde reportado!!! Obrigado por contribuir por uma galaxia melhor.";
+        return "Traidor reportado!!! Obrigado por contribuir por uma galaxia melhor.";
     }
 }
