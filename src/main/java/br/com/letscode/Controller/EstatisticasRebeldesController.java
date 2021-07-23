@@ -23,14 +23,14 @@ public class EstatisticasRebeldesController {
       */
     @GetMapping
     @RequestMapping("/traidores")
-    public int getPorcentagemTraidores(){
-        return rebeldesServices.getPorcentagemTraidores();
+    public String getPorcentagemTraidores(){
+        return "A porcentagem de traidores na galaxia é de : "+rebeldesServices.getPorcentagemTraidores()+ "%";
     }
 
     @GetMapping
     @RequestMapping("/rebeldes")
-    public int getPorcentagemRebeldes(){
-        return rebeldesServices.getPorcentagemRebeldes();
+    public String getPorcentagemRebeldes(){
+        return "A porcentagem de rebeldes na galaxia é de : "+rebeldesServices.getPorcentagemRebeldes()+ "%";
     }
 
     @GetMapping

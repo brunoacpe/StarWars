@@ -25,11 +25,11 @@ public class RebeldesServices {
         return rebeldesDAO.persistirRebelde(novoRebelde);
     }
 
-    public int getPorcentagemTraidores(){
+    public float getPorcentagemTraidores(){
         return rebeldesDAO.getPorcentagemTraidores();
     }
 
-    public int getPorcentagemRebeldes() {
+    public float getPorcentagemRebeldes() {
         return rebeldesDAO.getPorcentagemRebeldes();
     }
 

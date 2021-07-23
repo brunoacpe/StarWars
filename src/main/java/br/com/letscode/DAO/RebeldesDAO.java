@@ -64,7 +64,7 @@ public class RebeldesDAO {
         return String.format("%s;%s;%s;%s;%s;%s;%s;%s;%s;%s\r\n",novoRebelde.getNome(),novoRebelde.getGenero(),novoRebelde.getNomeGalaxia(),novoRebelde.getLatitude(),novoRebelde.getLongitude(),novoRebelde.getArma(),novoRebelde.getMunicao(),novoRebelde.getComida(),novoRebelde.getAgua(),novoRebelde.isTraitor());
     }
 
-    public int getPorcentagemTraidores() {
+    public float getPorcentagemTraidores() {
         List<Rebelde> rebeldeList = listarTodosRebeldes();
         List<Rebelde> traidoresList =  rebeldeList
                 .stream()
@@ -73,14 +73,14 @@ public class RebeldesDAO {
         if(traidoresList.isEmpty()){
             //todo -- retornar erro que diz que não existem traidores na galaxia.
         }
-        int porcentagemTraidores = (traidoresList.size()*100)/(rebeldeList.size()*100);
+        float porcentagemTraidores = (traidoresList.size()*100)/(rebeldeList.size()*100);
         return porcentagemTraidores;
     }
 
-    public int getPorcentagemRebeldes(){
+    public float getPorcentagemRebeldes(){
         List<Rebelde> rebeldeList = listarTodosRebeldes();
         int numeroTotal = rebeldeList.size()*100;
-        int numeroTraidores = getPorcentagemTraidores();
+        float numeroTraidores = getPorcentagemTraidores();
         return numeroTotal-numeroTraidores;
     }
 
