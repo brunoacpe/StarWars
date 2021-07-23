@@ -1,7 +1,9 @@
 package br.com.letscode.DAO;
 
 
+import br.com.letscode.Model.Localizacao;
 import br.com.letscode.Model.Rebelde;
+import br.com.letscode.Model.Recursos;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
@@ -37,15 +39,20 @@ public class RebeldesDAO {
     public Rebelde converterLinhaEmRebelde(String linha){
         StringTokenizer st = new StringTokenizer(linha,";");
         var novoRebelde = new Rebelde();
+        var novaLocalizacao = new Localizacao();
+        var novosRecursos = new Recursos();
+        novoRebelde.setLocalizacao(novaLocalizacao);
+        novoRebelde.setRecursos(novosRecursos);
         novoRebelde.setNome(st.nextToken());
         novoRebelde.setGenero(st.nextToken());
-        novoRebelde.setNomeGalaxia(st.nextToken());
-        novoRebelde.setLatitude(Long.parseLong(st.nextToken()));
-        novoRebelde.setLongitude(Long.parseLong(st.nextToken()));
-        novoRebelde.setArma(Integer.parseInt(st.nextToken()));
-        novoRebelde.setMunicao(Integer.parseInt(st.nextToken()));
-        novoRebelde.setComida(Integer.parseInt(st.nextToken()));
-        novoRebelde.setAgua(Integer.parseInt(st.nextToken()));
+        novoRebelde.getLocalizacao().setNomeGalaxia(st.nextToken());
+        novoRebelde.getLocalizacao().setLatitude(Long.parseLong(st.nextToken()));
+        novoRebelde.getLocalizacao().setLongitude(Long.parseLong(st.nextToken()));
+        novoRebelde.getRecursos().setArma(Integer.parseInt(st.nextToken()));
+        novoRebelde.getRecursos().setMunicao(Integer.parseInt(st.nextToken()));
+        novoRebelde.getRecursos().setComida(Integer.parseInt(st.nextToken()));
+        novoRebelde.getRecursos().setAgua(Integer.parseInt(st.nextToken()));
+        novoRebelde.setReports(Integer.parseInt(st.nextToken()));
         novoRebelde.setTraitor(Boolean.parseBoolean(st.nextToken()));
         return novoRebelde;
     }
@@ -61,7 +68,7 @@ public class RebeldesDAO {
     }
 
     private String formatar(Rebelde novoRebelde) {
-        return String.format("%s;%s;%s;%s;%s;%s;%s;%s;%s;%s\r\n",novoRebelde.getNome(),novoRebelde.getGenero(),novoRebelde.getNomeGalaxia(),novoRebelde.getLatitude(),novoRebelde.getLongitude(),novoRebelde.getArma(),novoRebelde.getMunicao(),novoRebelde.getComida(),novoRebelde.getAgua(),novoRebelde.isTraitor());
+        return String.format("%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s\r\n",novoRebelde.getNome(),novoRebelde.getGenero(),novoRebelde.getLocalizacao().getNomeGalaxia(),novoRebelde.getLocalizacao().getLatitude(),novoRebelde.getLocalizacao().getLongitude(),novoRebelde.getRecursos().getArma(),novoRebelde.getRecursos().getMunicao(),novoRebelde.getRecursos().getComida(),novoRebelde.getRecursos().getAgua(),novoRebelde.getReports(),novoRebelde.isTraitor());
     }
 
     public float getPorcentagemTraidores() {
@@ -94,25 +101,29 @@ public class RebeldesDAO {
 
         List<Integer> listArmas = listaSemTraidores
                 .stream()
-                .map(Rebelde::getArma)
+                .map(Rebelde::getRecursos)
+                .map(Recursos::getArma)
                 .collect(Collectors.toList());
         var armas =somarListFazerMedia(listArmas);
 
         List<Integer> listMunicao = listaSemTraidores
                 .stream()
-                .map(Rebelde::getMunicao)
+                .map(Rebelde::getRecursos)
+                .map(Recursos::getMunicao)
                 .collect(Collectors.toList());
         var municao =  somarListFazerMedia(listMunicao);
 
         List<Integer> listComida = listaSemTraidores
                 .stream()
-                .map(Rebelde::getComida)
+                .map(Rebelde::getRecursos)
+                .map(Recursos::getComida)
                 .collect(Collectors.toList());
         var comida = somarListFazerMedia(listComida);
 
         List<Integer> listAgua = listaSemTraidores
                 .stream()
-                .map(Rebelde::getAgua)
+                .map(Rebelde::getRecursos)
+                .map(Recursos::getAgua)
                 .collect(Collectors.toList());
         var agua = somarListFazerMedia(listAgua);
         //TODO -- AINDA ARRUMAR ESTE MÉTODO.

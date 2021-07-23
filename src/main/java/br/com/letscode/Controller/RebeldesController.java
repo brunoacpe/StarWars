@@ -2,7 +2,9 @@ package br.com.letscode.Controller;
 
 
 import br.com.letscode.DAO.RebeldesDAO;
+import br.com.letscode.Model.Localizacao;
 import br.com.letscode.Model.Rebelde;
+import br.com.letscode.Model.Recursos;
 import br.com.letscode.Services.RebeldesServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -39,13 +41,8 @@ public class RebeldesController {
         var novoRebelde = new Rebelde();
         novoRebelde.setNome(rebelde.getNome());
         novoRebelde.setGenero(rebelde.getGenero());
-        novoRebelde.setLatitude(rebelde.getLatitude());
-        novoRebelde.setLongitude(rebelde.getLongitude());
-        novoRebelde.setNomeGalaxia(rebelde.getNomeGalaxia());
-        novoRebelde.setArma(rebelde.getArma());
-        novoRebelde.setMunicao(rebelde.getMunicao());
-        novoRebelde.setComida(rebelde.getComida());
-        novoRebelde.setAgua(rebelde.getAgua());
+        novoRebelde.setLocalizacao(new Localizacao(rebelde.getLocalizacao().getNomeGalaxia(),rebelde.getLocalizacao().getLatitude(),rebelde.getLocalizacao().getLongitude()));
+        novoRebelde.setRecursos(new Recursos(rebelde.getRecursos().getArma(),rebelde.getRecursos().getMunicao(),rebelde.getRecursos().getAgua(),rebelde.getRecursos().getComida()));
         novoRebelde.setTraitor(false);
         return rebeldesServices.criarRebelde(novoRebelde);
     }

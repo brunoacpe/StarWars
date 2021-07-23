@@ -16,13 +16,9 @@ public class Rebelde {
 
     private String nome;
     private String genero;
-    private String nomeGalaxia;
-    private Long latitude;
-    private Long longitude;
-    private Integer arma;
-    private Integer municao;
-    private Integer agua;
-    private Integer comida;
+    private Localizacao localizacao;
+    private Recursos recursos;
+    private Integer reports = 0;
     private boolean isTraitor;
 
 }

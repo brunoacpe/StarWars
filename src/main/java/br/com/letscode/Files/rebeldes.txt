@@ -1,3 +1,1 @@
-bruno;masculino;Taubaté;-19;15;1;1;2;0;false
-vitória;feminino;nao sei;-11;115;3;6;0;10;true
-Amora;feminino;nao sei;100;100;2;1;2;2;true
+Bruno;masculino;Taubaté;-19;15;1;2;0;1;0;false
