@@ -33,7 +33,7 @@ public class RebeldesServices {
         return rebeldesDAO.getPorcentagemRebeldes();
     }
 
-    public int getQuantidadeMedia() {
+    public List<Integer> getQuantidadeMedia() {
         return rebeldesDAO.getQuantidadeMedia();
     }
 }

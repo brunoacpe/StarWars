@@ -84,7 +84,7 @@ public class RebeldesDAO {
         return numeroTotal-numeroTraidores;
     }
 
-    public int getQuantidadeMedia() {
+    public List<Integer> getQuantidadeMedia() {
         List<Rebelde> rebeldeList = listarTodosRebeldes();
 
         List<Rebelde> listaSemTraidores = rebeldeList
@@ -96,27 +96,28 @@ public class RebeldesDAO {
                 .stream()
                 .map(Rebelde::getArma)
                 .collect(Collectors.toList());
-        somarListFazerMedia(listArmas);
+        var armas =somarListFazerMedia(listArmas);
 
         List<Integer> listMunicao = listaSemTraidores
                 .stream()
                 .map(Rebelde::getMunicao)
                 .collect(Collectors.toList());
-        somarListFazerMedia(listMunicao);
+        var municao =  somarListFazerMedia(listMunicao);
 
         List<Integer> listComida = listaSemTraidores
                 .stream()
                 .map(Rebelde::getComida)
                 .collect(Collectors.toList());
-        somarListFazerMedia(listComida);
+        var comida = somarListFazerMedia(listComida);
 
         List<Integer> listAgua = listaSemTraidores
                 .stream()
                 .map(Rebelde::getAgua)
                 .collect(Collectors.toList());
-        somarListFazerMedia(listAgua);
+        var agua = somarListFazerMedia(listAgua);
         //TODO -- AINDA ARRUMAR ESTE MÉTODO.
-        return 0;
+        List<Integer> list = List.of(armas,municao,comida,agua);
+        return list;
     }
 
     public int somarListFazerMedia(List<Integer> x){

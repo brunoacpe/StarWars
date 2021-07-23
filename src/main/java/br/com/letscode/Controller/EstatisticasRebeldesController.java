@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/estatisticas")
 public class EstatisticasRebeldesController {
@@ -35,7 +37,8 @@ public class EstatisticasRebeldesController {
 
     @GetMapping
     @RequestMapping("/recursos")
-    public int getQuantidadeMedia(){
-        return rebeldesServices.getQuantidadeMedia();
+    public String getQuantidadeMedia(){
+        List<Integer> listMedia = rebeldesServices.getQuantidadeMedia();
+        return String.format("A quantidade média de recursos é:\n Armas: %d\nMunição: %d\nComida: %d\nAgua: %d\n",listMedia.get(0),listMedia.get(1),listMedia.get(2),listMedia.get(3));
     }
 }
