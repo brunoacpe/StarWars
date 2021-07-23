@@ -8,6 +8,8 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -26,11 +28,12 @@ public class RebeldesDAO {
     public void init(){
         pathRebeldes = Paths.get(caminho);
     }
-    public List<Rebelde> listarTodosRebeldes() {
+    public List<Rebelde> lerArquivo() {
 
         List<Rebelde> rebeldesList = new ArrayList<>();
         try(var br = Files.newBufferedReader(pathRebeldes)){
-            rebeldesList = br.lines().map(this::converterLinhaEmRebelde).collect(Collectors.toList());
+            rebeldesList = br.lines().map(this::converterLinhaEmRebelde)
+                    .collect(Collectors.toList());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -72,7 +75,7 @@ public class RebeldesDAO {
     }
 
     public float getPorcentagemTraidores() {
-        List<Rebelde> rebeldeList = listarTodosRebeldes();
+        List<Rebelde> rebeldeList = lerArquivo();
         List<Rebelde> traidoresList =  rebeldeList
                 .stream()
                 .filter(Rebelde::isTraitor)
@@ -85,14 +88,14 @@ public class RebeldesDAO {
     }
 
     public float getPorcentagemRebeldes(){
-        List<Rebelde> rebeldeList = listarTodosRebeldes();
+        List<Rebelde> rebeldeList = lerArquivo();
         int numeroTotal = rebeldeList.size()*100;
         float numeroTraidores = getPorcentagemTraidores();
         return numeroTotal-numeroTraidores;
     }
 
     public List<Integer> getQuantidadeMedia() {
-        List<Rebelde> rebeldeList = listarTodosRebeldes();
+        List<Rebelde> rebeldeList = lerArquivo();
 
         List<Rebelde> listaSemTraidores = rebeldeList
                 .stream()
@@ -139,5 +142,33 @@ public class RebeldesDAO {
             soma+=i;
         }
         return soma/tamanho;
+    }
+
+    public void apagarArquivo() throws IOException {
+        Files.delete(pathRebeldes);
+    }
+    public void escreverListaNoArquivo(List<Rebelde> rebeldeList){
+        try{
+            PrintWriter printWriter = new PrintWriter("src\\main\\java\\br\\com\\letscode\\Files\\rebeldes.txt", StandardCharsets.UTF_8);
+            printWriter.close();
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+
+        for(Rebelde r: rebeldeList){
+            persistirRebelde(r);
+        }
+    }
+
+    public String fazerReport(String nomeReportado) throws IOException {
+        List<Rebelde> rebeldeList = lerArquivo();
+        for(Rebelde r: rebeldeList){
+            if (r.getNome().equals(nomeReportado)){
+                r.setReports(r.getReports()+1);
+            }
+        }
+        apagarArquivo();
+        escreverListaNoArquivo(rebeldeList);
+        return "Rebelde reportado!!! Obrigado por contribuir por uma galaxia melhor.";
     }
 }

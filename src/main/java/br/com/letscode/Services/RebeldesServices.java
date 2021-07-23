@@ -6,6 +6,7 @@ import br.com.letscode.Model.Rebelde;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.io.IOException;
 import java.util.List;
 
 @Component
@@ -18,7 +19,7 @@ public class RebeldesServices {
         this.rebeldesDAO = rebeldesDAO;
     }
     public List<Rebelde> listarRebeldes(){
-        return rebeldesDAO.listarTodosRebeldes();
+        return rebeldesDAO.lerArquivo();
     }
 
     public Rebelde criarRebelde(Rebelde novoRebelde) {
@@ -35,5 +36,9 @@ public class RebeldesServices {
 
     public List<Integer> getQuantidadeMedia() {
         return rebeldesDAO.getQuantidadeMedia();
+    }
+
+    public String reportarRebelde(String nomeReportador, String nomeReportado) throws IOException {
+        return rebeldesDAO.fazerReport(nomeReportado);
     }
 }
