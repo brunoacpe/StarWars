@@ -1,7 +1,4 @@
 package br.com.letscode.Controller;
-
-
-import br.com.letscode.DAO.RebeldesDAO;
 import br.com.letscode.Model.Localizacao;
 import br.com.letscode.Model.Rebelde;
 import br.com.letscode.Model.Recursos;
