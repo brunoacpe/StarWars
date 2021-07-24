@@ -173,12 +173,23 @@ public class RebeldesDAO {
 
     public String fazerReport(String nomeReportado) throws IOException {
         List<Rebelde> rebeldeList = lerArquivo();
+
         for(Rebelde r: rebeldeList){
-            if (r.getNome().equals(nomeReportado)){
-                r.setReports(r.getReports()+1);
+            if(r.getNome().equalsIgnoreCase(nomeReportado)&&r.isTraitor()){
+                return "Já temos a informação de que este rebelde se tornou um traidor.";
             }
+            if (r.getNome().equals(nomeReportado)&&!(r.isTraitor())){
+                r.setReports(r.getReports()+1);
+                if(r.getReports()==3){
+                    r.setTraitor(true);
+                    apagarArquivo();
+                    escreverListaNoArquivo(rebeldeList);
+                    return "Este rebelde recebeu 3 reports. A partir de hoje ele é considerado um traidor !";
+                }
+            }
+
         }
-        //TODO --- CHECAR SE JA TEM 3 REPORTS
+
         apagarArquivo();
         escreverListaNoArquivo(rebeldeList);
         return "Traidor reportado!!! Obrigado por contribuir por uma galaxia melhor.";

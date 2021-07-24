@@ -69,7 +69,7 @@ public class NegociarItemController {
         long numeroDeMunicao = itensDeTroca.stream().filter(item -> item.equalsIgnoreCase("munição")).count();
         long numeroDeAguas = itensDeTroca.stream().filter(item -> item.equalsIgnoreCase("água")).count();
         long numeroDeComida = itensDeTroca.stream().filter(item -> item.equalsIgnoreCase("comida")).count();
-        return (numeroDeArmas * 4) + (numeroDeMunicao * 3) + ( numeroDeAguas * 2) + ( numeroDeComida * 1) ;
+        return (numeroDeArmas * 4) + (numeroDeMunicao * 3) + ( numeroDeAguas * 2) + ( numeroDeComida) ;
     }
 
     public boolean trocaDeItens(Optional<Rebelde> rebelde1, List<String> listaDoRebelde1, Optional<Rebelde> rebelde2, List<String> listaDoRebelde2){
