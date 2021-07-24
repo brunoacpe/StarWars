@@ -194,4 +194,50 @@ public class RebeldesDAO {
         escreverListaNoArquivo(rebeldeList);
         return "Traidor reportado!!! Obrigado por contribuir por uma galaxia melhor.";
     }
+
+    public Integer calculoPontosRebeldes() {
+        List<Recursos> listaRecursosRebeldes = lerArquivo()
+                .stream()
+                .filter(t -> !(t.isTraitor()))
+                .map(Rebelde::getRecursos)
+                .collect(Collectors.toList());
+        var valorComida = 1;
+        var valorAgua = 2;
+        var valorArma = 4;
+        var valorMunicao =3;
+
+        List<Integer> listAgua =listaRecursosRebeldes
+                .stream()
+                .map(Recursos::getAgua)
+                .collect(Collectors.toList());
+        Integer pontosAgua = somarList(listAgua)*valorAgua;
+
+        List<Integer> listComida =listaRecursosRebeldes
+                .stream()
+                .map(Recursos::getComida)
+                .collect(Collectors.toList());
+        Integer pontosComida = somarList(listComida)*valorComida;
+
+        List<Integer> listArma =listaRecursosRebeldes
+                .stream()
+                .map(Recursos::getArma)
+                .collect(Collectors.toList());
+        Integer pontosArma = somarList(listArma)*valorArma;
+
+        List<Integer> listMunicao =listaRecursosRebeldes
+                .stream()
+                .map(Recursos::getMunicao)
+                .collect(Collectors.toList());
+        Integer pontosMunicao = somarList(listMunicao)*valorMunicao;
+
+        return pontosComida+pontosArma+pontosMunicao+pontosAgua;
+    }
+
+    public Integer somarList(List<Integer> x){
+        var soma = 0;
+        for(Integer y: x){
+            soma+=y;
+        }
+        return soma;
+    }
 }

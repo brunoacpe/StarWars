@@ -41,4 +41,8 @@ public class RebeldesServices {
     public String reportarRebelde(String nomeReportador, String nomeReportado) throws IOException {
         return rebeldesDAO.fazerReport(nomeReportado);
     }
+
+    public Integer getQuantidadePontos(){
+        return rebeldesDAO.calculoPontosRebeldes();
+    }
 }

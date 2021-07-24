@@ -43,4 +43,10 @@ public class EstatisticasRebeldesController {
         List<Integer> listMedia = rebeldesServices.getQuantidadeMedia();
         return String.format("A quantidade média de recursos é:\n Armas: %d\nMunição: %d\nComida: %d\nAgua: %d\n",listMedia.get(0),listMedia.get(1),listMedia.get(2),listMedia.get(3));
     }
+
+    @GetMapping
+    @RequestMapping("/pontos")
+    public String getQuantidadePontosRebeldes(){
+        return String.format("A quantidade de pontos que os rebeldes ja acumularam pela galaxia é de: %d, parabéns rebeldes.",rebeldesServices.getQuantidadePontos());
+    }
 }
