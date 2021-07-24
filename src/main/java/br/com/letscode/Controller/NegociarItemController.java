@@ -32,8 +32,21 @@ public class NegociarItemController {
                 "Obrigado pela atenção !";
     }
 
+
+    // O primeiro bug possivel é q vc queria as repostas no body em formato json,para isso se usa o requestbody e pediu elas no requestparam isso pede elas pela url
+    // ("itensDeTrocaRebelde1") ("itensDeTrocaRebelde2")
+    // como deve ser feito a estrutura dos itens em json pra passar no postman
+    //    {
+    //        "foos" : [{
+    //        "prop1":"value1",
+    //        "prop2":"value2"
+    //    }, {
+    //        "prop1":"value3",
+    //        "prop2":"value4"
+    //    }]
+    //    }
     @PostMapping
-    public String negociarItens(@RequestParam("itensDeTrocaRebelde1") ArrayList<String> itensDeTrocaRebelde1, @RequestParam("itensDeTrocaRebelde2") ArrayList<String> itensDeTrocaRebelde2, @RequestParam("nomeRebelde1") String nomeRebelde1, @RequestParam("nomeRebelde2") String nomeRebelde2) {
+    public String negociarItens(@RequestBody ArrayList<String> itensDeTrocaRebelde1, @RequestBody ArrayList<String> itensDeTrocaRebelde2, @RequestParam("nomeRebelde1") String nomeRebelde1, @RequestParam("nomeRebelde2") String nomeRebelde2) {
         Optional<Rebelde> rebelde1 = rebeldesServices.listarRebeldes().stream().filter(r -> r.getNome().equals(nomeRebelde1)).findFirst();
         Optional<Rebelde> rebelde2 = rebeldesServices.listarRebeldes().stream().filter(r -> r.getNome().equals(nomeRebelde2)).findFirst();
         if (rebelde1.isPresent() && rebelde2.isPresent()) {
