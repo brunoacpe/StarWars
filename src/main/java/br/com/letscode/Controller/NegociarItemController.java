@@ -22,7 +22,11 @@ public class NegociarItemController {
 
     @GetMapping
     public String init(){
-        return "Seja bem vindo à área de negociação Rebelde ! Negocie com sabedoria !";
+        return "Seja bem vindo à área de negociação Rebeldes ! Negocie com sabedoria ! \n" +
+                "Como fazer negociação ? \n" +
+                "1- Cada um deve passar uma lista de itens desejado pelo requestParam, ex: {água, água,arma} \n" +
+                "2- E passar as informações de vocês pelo RequestBody para fazermos as modificações \n" +
+                "Obrigado pela atenção !";
     }
 
     @PostMapping
