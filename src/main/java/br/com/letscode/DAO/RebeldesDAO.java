@@ -240,4 +240,27 @@ public class RebeldesDAO {
         }
         return soma;
     }
+
+    public String atualizarLocalizacao(Localizacao novaLocalizacao, String nomeRebelde) {
+        List<Rebelde> listSemTraidores = lerArquivo()
+                .stream()
+                .filter(r -> !(r.isTraitor()))
+                .collect(Collectors.toList());
+        if(listSemTraidores.stream().filter(n -> n.getNome().equalsIgnoreCase(nomeRebelde)).findAny().isEmpty()){
+            return "Não existe nenhum rebelde com este nome.";
+        }
+        for(Rebelde r: listSemTraidores){
+            if(r.getNome().equalsIgnoreCase(nomeRebelde)){
+                r.setLocalizacao(novaLocalizacao);
+            }
+        }
+        try{
+            apagarArquivo();
+        } catch (IOException ex){
+            ex.getMessage();
+        }
+        escreverListaNoArquivo(listSemTraidores);
+        return "Localização atualizada !!! Bom saber por onde você anda.";
+
+    }
 }

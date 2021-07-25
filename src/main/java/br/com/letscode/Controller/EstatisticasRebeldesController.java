@@ -19,10 +19,7 @@ public class EstatisticasRebeldesController {
     public EstatisticasRebeldesController(RebeldesServices rebeldesServices){
         this.rebeldesServices = rebeldesServices;
     }
-    //TODO -- DADOS QUE DEVEM SER ACESSADOS POR ESSE CONTROLLER
-    /*
-      Pontos perdidos devido a traidores.
-      */
+
 
     @GetMapping
     @RequestMapping("/traidores")

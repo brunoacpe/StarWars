@@ -7,8 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -42,5 +44,15 @@ public class RebeldesController {
         novoRebelde.setRecursos(new Recursos(rebelde.getRecursos().getArma(),rebelde.getRecursos().getMunicao(),rebelde.getRecursos().getAgua(),rebelde.getRecursos().getComida()));
         novoRebelde.setTraitor(false);
         return rebeldesServices.criarRebelde(novoRebelde);
+    }
+
+    @PutMapping("/atualizarLocalização")
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    public String atualizarLocalizacaoRebelde(@RequestBody Localizacao localizacao, @RequestParam String nomeRebelde){
+        var novaLocalizacao = new Localizacao();
+        novaLocalizacao.setNomeGalaxia(localizacao.getNomeGalaxia());
+        novaLocalizacao.setLatitude(localizacao.getLatitude());
+        novaLocalizacao.setLongitude(localizacao.getLongitude());
+        return rebeldesServices.atualizarLocalizacao(novaLocalizacao,nomeRebelde);
     }
 }

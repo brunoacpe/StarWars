@@ -2,6 +2,7 @@ package br.com.letscode.Services;
 
 
 import br.com.letscode.DAO.RebeldesDAO;
+import br.com.letscode.Model.Localizacao;
 import br.com.letscode.Model.Rebelde;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -44,5 +45,9 @@ public class RebeldesServices {
 
     public Integer getQuantidadePontos(){
         return rebeldesDAO.calculoPontosRebeldes();
+    }
+
+    public String atualizarLocalizacao(Localizacao novaLocalizacao, String nomeRebelde) {
+        return rebeldesDAO.atualizarLocalizacao(novaLocalizacao,nomeRebelde);
     }
 }

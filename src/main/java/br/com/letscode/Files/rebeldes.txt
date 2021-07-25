@@ -1,6 +1,3 @@
-Bruno;masculino;Taubaté;-19;15;1;2;0;1;0;false
-Felipe Augusto;masculino;Taubaté;-19;15;1;2;0;1;1;true
-Guilherme;masculino;São Paulo;-19;15;1;2;0;1;3;true
 Valquiria;feminino;nao sei;-129;145;3;5;1;0;1;false
 Valquiria;feminino;nao sei;-129;145;3;5;1;0;1;false
-Robson;masculino;Taubaté;-19;15;1;2;0;1;0;false
+Robson;masculino;São Paulo;20;30;1;2;0;1;0;false
