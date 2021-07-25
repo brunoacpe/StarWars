@@ -21,8 +21,8 @@ public class ReportsController {
     }
 
     @PostMapping
-    public String reportarRebelde(@RequestParam String nomeReportador, @RequestParam String nomeReportado) throws IOException {
-        return rebeldesServices.reportarRebelde(nomeReportador,nomeReportado);
+    public String reportarRebelde(@RequestParam String nomeReportado) throws IOException {
+        return rebeldesServices.reportarRebelde(nomeReportado);
     }
 
 }

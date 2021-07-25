@@ -27,11 +27,11 @@ public class RebeldesServices {
         return rebeldesDAO.persistirRebelde(novoRebelde);
     }
 
-    public float getPorcentagemTraidores(){
+    public Float getPorcentagemTraidores(){
         return rebeldesDAO.getPorcentagemTraidores();
     }
 
-    public float getPorcentagemRebeldes() {
+    public Float getPorcentagemRebeldes() {
         return rebeldesDAO.getPorcentagemRebeldes();
     }
 
@@ -39,7 +39,7 @@ public class RebeldesServices {
         return rebeldesDAO.getQuantidadeMedia();
     }
 
-    public String reportarRebelde(String nomeReportador, String nomeReportado) throws IOException {
+    public String reportarRebelde(String nomeReportado) throws IOException {
         return rebeldesDAO.fazerReport(nomeReportado);
     }
 

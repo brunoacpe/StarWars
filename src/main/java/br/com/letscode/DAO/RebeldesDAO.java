@@ -88,7 +88,7 @@ public class RebeldesDAO {
         return null;
     }
 
-    public float getPorcentagemRebeldes(){
+    public Float getPorcentagemRebeldes(){
 
         List<Rebelde> rebeldeList = filtrarTraidores();
 
@@ -145,7 +145,7 @@ public class RebeldesDAO {
         return list;
     }
 
-    public int somarListFazerMedia(List<Integer> x){
+    public Integer somarListFazerMedia(List<Integer> x){
 
         int tamanho = x.size();
         int soma = 0;
@@ -155,10 +155,13 @@ public class RebeldesDAO {
         return soma/tamanho;
     }
 
-    public void apagarArquivo() throws IOException {
-        Files.delete(pathRebeldes);
-    }
     public void escreverListaNoArquivo(List<Rebelde> rebeldeList){
+        try{
+            Files.delete(pathRebeldes);
+        } catch(IOException ex){
+            ex.printStackTrace();
+        }
+
         try{
             PrintWriter printWriter = new PrintWriter("src\\main\\java\\br\\com\\letscode\\Files\\rebeldes.txt", StandardCharsets.UTF_8);
             printWriter.close();
@@ -182,7 +185,6 @@ public class RebeldesDAO {
                 r.setReports(r.getReports()+1);
                 if(r.getReports()==3){
                     r.setTraitor(true);
-                    apagarArquivo();
                     escreverListaNoArquivo(rebeldeList);
                     return "Este rebelde recebeu 3 reports. A partir de hoje ele é considerado um traidor !";
                 }
@@ -190,7 +192,6 @@ public class RebeldesDAO {
 
         }
 
-        apagarArquivo();
         escreverListaNoArquivo(rebeldeList);
         return "Traidor reportado!!! Obrigado por contribuir por uma galaxia melhor.";
     }
@@ -249,11 +250,6 @@ public class RebeldesDAO {
             if(r.getNome().equalsIgnoreCase(nomeRebelde)){
                 r.setLocalizacao(novaLocalizacao);
             }
-        }
-        try{
-            apagarArquivo();
-        } catch (IOException ex){
-            ex.getMessage();
         }
         escreverListaNoArquivo(listSemTraidores);
         return "Localização atualizada !!! Bom saber por onde você anda.";
