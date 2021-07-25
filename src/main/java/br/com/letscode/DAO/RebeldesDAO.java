@@ -76,41 +76,41 @@ public class RebeldesDAO {
         return String.format("%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s\r\n",novoRebelde.getNome(),novoRebelde.getGenero(),novoRebelde.getLocalizacao().getNomeGalaxia(),novoRebelde.getLocalizacao().getLatitude(),novoRebelde.getLocalizacao().getLongitude(),novoRebelde.getRecursos().getArma(),novoRebelde.getRecursos().getMunicao(),novoRebelde.getRecursos().getComida(),novoRebelde.getRecursos().getAgua(),novoRebelde.getReports(),novoRebelde.isTraitor());
     }
 
-    public float getPorcentagemTraidores() {
-        List<Rebelde> rebeldeList = lerArquivo();
-        List<Rebelde> traidoresList =  rebeldeList
-                .stream()
-                .filter(Rebelde::isTraitor)
-                .collect(Collectors.toList());
+    public Float getPorcentagemTraidores() {
+
+        List<Rebelde> traidoresList = filtrarRebeldes();
+
         if(traidoresList.isEmpty()){
             //todo -- retornar erro que diz que não existem traidores na galaxia.
         }
         //TODO -- CALCULO DE PORCENTAGEM DE TRAIDORES >>
-        float porcentagemTraidores = (traidoresList.size()*100)/(rebeldeList.size()*100);
-        return porcentagemTraidores;
+        //float porcentagemTraidores = (traidoresList.size()*100)/(rebeldeList.size()*100);
+        return null;
     }
 
     public float getPorcentagemRebeldes(){
-        List<Rebelde> rebeldeList = lerArquivo();
-        List<Rebelde> realmenteRebeldeList = rebeldeList
-                .stream()
-                .filter(r -> !(r.isTraitor()))
-                .collect(Collectors.toList());
+
+        List<Rebelde> rebeldeList = filtrarTraidores();
+
         //TODO --- CALCULO DE PORCENTAGEM DE REBELDES NA LISTA;
 
         int numeroTotal = rebeldeList.size()*100;
         float numeroTraidores = getPorcentagemTraidores();
         return numeroTotal-numeroTraidores;
     }
+    public List<Rebelde> filtrarTraidores(){
+        List<Rebelde> list = lerArquivo();
+        return list.stream().filter(t -> !(t.isTraitor())).collect(Collectors.toList());
+    }
+
+    public List<Rebelde> filtrarRebeldes(){
+        List<Rebelde> list = lerArquivo();
+        return list.stream().filter(t -> t.isTraitor()).collect(Collectors.toList());
+    }
 
     public List<Integer> getQuantidadeMedia() {
 
-        List<Rebelde> rebeldeList = lerArquivo();
-
-        List<Rebelde> listaSemTraidores = rebeldeList
-                .stream()
-                .filter(t -> !(t.isTraitor()))
-                .collect(Collectors.toList());
+        List<Rebelde> listaSemTraidores = filtrarTraidores();
 
         List<Integer> listArmas = listaSemTraidores
                 .stream()
@@ -196,9 +196,8 @@ public class RebeldesDAO {
     }
 
     public Integer calculoPontosRebeldes() {
-        List<Recursos> listaRecursosRebeldes = lerArquivo()
+        List<Recursos> listaRecursosRebeldes = filtrarTraidores()
                 .stream()
-                .filter(t -> !(t.isTraitor()))
                 .map(Rebelde::getRecursos)
                 .collect(Collectors.toList());
         var valorComida = 1;
@@ -242,10 +241,7 @@ public class RebeldesDAO {
     }
 
     public String atualizarLocalizacao(Localizacao novaLocalizacao, String nomeRebelde) {
-        List<Rebelde> listSemTraidores = lerArquivo()
-                .stream()
-                .filter(r -> !(r.isTraitor()))
-                .collect(Collectors.toList());
+        List<Rebelde> listSemTraidores = filtrarTraidores();
         if(listSemTraidores.stream().filter(n -> n.getNome().equalsIgnoreCase(nomeRebelde)).findAny().isEmpty()){
             return "Não existe nenhum rebelde com este nome.";
         }
