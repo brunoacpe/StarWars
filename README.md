@@ -1,6 +1,6 @@
 # StarWars
 
-Projeto Spring para simular um jogo.
+CRUD Star Wars.
 
 NOME DOS PARTICIPANTES DO GRUPO
 
