@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
 @Component
 public class RebeldesDAO {
 
-    private String caminho = "src\\main\\java\\br\\com\\letscode\\Files\\rebeldes.txt";
+    private String caminho = "src\\main\\resources\\data\\rebeldes.txt";
     private Path pathRebeldes;
     @PostConstruct
     public void init(){
@@ -73,7 +73,7 @@ public class RebeldesDAO {
     }
 
     private String formatar(Rebelde novoRebelde) {
-        return String.format("%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s\r\n",novoRebelde.getNome(),novoRebelde.getGenero(),novoRebelde.getLocalizacao().getNomeGalaxia(),novoRebelde.getLocalizacao().getLatitude(),novoRebelde.getLocalizacao().getLongitude(),novoRebelde.getRecursos().getArma(),novoRebelde.getRecursos().getMunicao(),novoRebelde.getRecursos().getComida(),novoRebelde.getRecursos().getAgua(),novoRebelde.getReports(),novoRebelde.isTraitor());
+        return String.format("%s;%s;%s;%d;%d;%s;%s;%s;%s;%s;%s\r\n",novoRebelde.getNome(),novoRebelde.getGenero(),novoRebelde.getLocalizacao().getNomeGalaxia(),novoRebelde.getLocalizacao().getLatitude(),novoRebelde.getLocalizacao().getLongitude(),novoRebelde.getRecursos().getArma(),novoRebelde.getRecursos().getMunicao(),novoRebelde.getRecursos().getComida(),novoRebelde.getRecursos().getAgua(),novoRebelde.getReports(),novoRebelde.isTraitor());
     }
 
     public Float getPorcentagemTraidores() {
@@ -112,33 +112,16 @@ public class RebeldesDAO {
 
         List<Rebelde> listaSemTraidores = filtrarTraidores();
 
-        List<Integer> listArmas = listaSemTraidores
-                .stream()
-                .map(Rebelde::getRecursos)
-                .map(Recursos::getArma)
-                .collect(Collectors.toList());
-
+        List<Integer> listArmas = Rebelde.getRecursosArmas(listaSemTraidores);
         var armas = somarListFazerMedia(listArmas);
 
-        List<Integer> listMunicao = listaSemTraidores
-                .stream()
-                .map(Rebelde::getRecursos)
-                .map(Recursos::getMunicao)
-                .collect(Collectors.toList());
+        List<Integer> listMunicao = Rebelde.getRecursosMunicao(listaSemTraidores);
         var municao =  somarListFazerMedia(listMunicao);
 
-        List<Integer> listComida = listaSemTraidores
-                .stream()
-                .map(Rebelde::getRecursos)
-                .map(Recursos::getComida)
-                .collect(Collectors.toList());
+        List<Integer> listComida = Rebelde.getRecursosComida(listaSemTraidores);
         var comida = somarListFazerMedia(listComida);
 
-        List<Integer> listAgua = listaSemTraidores
-                .stream()
-                .map(Rebelde::getRecursos)
-                .map(Recursos::getAgua)
-                .collect(Collectors.toList());
+        List<Integer> listAgua = Rebelde.getRecursosAgua(listaSemTraidores);
         var agua = somarListFazerMedia(listAgua);
 
         List<Integer> list = List.of(armas,municao,comida,agua);
@@ -174,7 +157,7 @@ public class RebeldesDAO {
         }
     }
 
-    public String fazerReport(String nomeReportado) throws IOException {
+    public String fazerReport(String nomeReportado) {
         List<Rebelde> rebeldeList = lerArquivo();
 
         for(Rebelde r: rebeldeList){
@@ -197,37 +180,22 @@ public class RebeldesDAO {
     }
 
     public Integer calculoPontosRebeldes() {
-        List<Recursos> listaRecursosRebeldes = filtrarTraidores()
-                .stream()
-                .map(Rebelde::getRecursos)
-                .collect(Collectors.toList());
+        List<Rebelde> listaRebeldes = filtrarTraidores();
         var valorComida = 1;
         var valorAgua = 2;
         var valorArma = 4;
         var valorMunicao =3;
 
-        List<Integer> listAgua =listaRecursosRebeldes
-                .stream()
-                .map(Recursos::getAgua)
-                .collect(Collectors.toList());
+        List<Integer> listAgua = Rebelde.getRecursosAgua(listaRebeldes);
         Integer pontosAgua = somarList(listAgua)*valorAgua;
 
-        List<Integer> listComida =listaRecursosRebeldes
-                .stream()
-                .map(Recursos::getComida)
-                .collect(Collectors.toList());
+        List<Integer> listComida = Rebelde.getRecursosComida(listaRebeldes);
         Integer pontosComida = somarList(listComida)*valorComida;
 
-        List<Integer> listArma =listaRecursosRebeldes
-                .stream()
-                .map(Recursos::getArma)
-                .collect(Collectors.toList());
+        List<Integer> listArma = Rebelde.getRecursosArmas(listaRebeldes);
         Integer pontosArma = somarList(listArma)*valorArma;
 
-        List<Integer> listMunicao =listaRecursosRebeldes
-                .stream()
-                .map(Recursos::getMunicao)
-                .collect(Collectors.toList());
+        List<Integer> listMunicao = Rebelde.getRecursosMunicao(listaRebeldes);
         Integer pontosMunicao = somarList(listMunicao)*valorMunicao;
 
         return pontosComida+pontosArma+pontosMunicao+pontosAgua;

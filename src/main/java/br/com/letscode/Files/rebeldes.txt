@@ -1,3 +1,0 @@
-Valquiria;feminino;nao sei;-129;145;3;5;1;0;1;false
-Valquiria;feminino;nao sei;-129;145;3;5;1;0;1;false
-Robson;masculino;São Paulo;20;30;1;2;0;1;0;false
