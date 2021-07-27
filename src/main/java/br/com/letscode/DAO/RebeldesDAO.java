@@ -145,7 +145,7 @@ public class RebeldesDAO {
         }
 
         try{
-            PrintWriter printWriter = new PrintWriter("src\\main\\java\\br\\com\\letscode\\Files\\rebeldes.txt", StandardCharsets.UTF_8);
+            PrintWriter printWriter = new PrintWriter("src\\main\\resources\\data\\rebeldes.txt", StandardCharsets.UTF_8);
             printWriter.close();
         } catch (IOException e){
             e.printStackTrace();
@@ -214,12 +214,13 @@ public class RebeldesDAO {
             return "Não existe nenhum rebelde com este nome.";
         }
         for(Rebelde r: list){
-            if(r.getNome().equalsIgnoreCase(nomeRebelde)){
+            if(r.getNome().equalsIgnoreCase(nomeRebelde)&&!(r.isTraitor())){
                 r.setLocalizacao(novaLocalizacao);
+                escreverListaNoArquivo(list);
+                return "Localização atualizada !!! Bom saber por onde você anda.";
             }
         }
-        escreverListaNoArquivo(list);
-        return "Localização atualizada !!! Bom saber por onde você anda.";
+        return "Você não vai conseguir atualizar sua localização, traidor.";
 
     }
 }
