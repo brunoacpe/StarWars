@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
 @Component
 public class RebeldesDAO {
 
-    private String caminho = "src\\main\\resources\\data\\rebeldes.txt";
+    private static final String  caminho = "src\\main\\resources\\data\\rebeldes.txt";
     private Path pathRebeldes;
     @PostConstruct
     public void init(){
@@ -105,7 +105,7 @@ public class RebeldesDAO {
 
     public List<Rebelde> filtrarRebeldes(){
         List<Rebelde> list = lerArquivo();
-        return list.stream().filter(t -> t.isTraitor()).collect(Collectors.toList());
+        return list.stream().filter(Rebelde::isTraitor).collect(Collectors.toList());
     }
 
     public List<Integer> getQuantidadeMedia() {
@@ -124,8 +124,7 @@ public class RebeldesDAO {
         List<Integer> listAgua = Rebelde.getRecursosAgua(listaSemTraidores);
         var agua = somarListFazerMedia(listAgua);
 
-        List<Integer> list = List.of(armas,municao,comida,agua);
-        return list;
+        return List.of(armas,municao,comida,agua);
     }
 
     public Integer somarListFazerMedia(List<Integer> x){
@@ -210,16 +209,16 @@ public class RebeldesDAO {
     }
 
     public String atualizarLocalizacao(Localizacao novaLocalizacao, String nomeRebelde) {
-        List<Rebelde> listSemTraidores = filtrarTraidores();
-        if(listSemTraidores.stream().filter(n -> n.getNome().equalsIgnoreCase(nomeRebelde)).findAny().isEmpty()){
+        List<Rebelde> list = lerArquivo();
+        if(list.stream().filter(n -> n.getNome().equalsIgnoreCase(nomeRebelde)).findAny().isEmpty()){
             return "Não existe nenhum rebelde com este nome.";
         }
-        for(Rebelde r: listSemTraidores){
+        for(Rebelde r: list){
             if(r.getNome().equalsIgnoreCase(nomeRebelde)){
                 r.setLocalizacao(novaLocalizacao);
             }
         }
-        escreverListaNoArquivo(listSemTraidores);
+        escreverListaNoArquivo(list);
         return "Localização atualizada !!! Bom saber por onde você anda.";
 
     }
