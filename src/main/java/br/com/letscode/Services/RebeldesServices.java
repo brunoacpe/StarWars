@@ -44,7 +44,7 @@ public class RebeldesServices {
     }
 
     public Integer getQuantidadePontos(){
-        return rebeldesDAO.calculoPontosRebeldes();
+        return rebeldesDAO.calculoPontosPerdidosRebeldes();
     }
 
     public String atualizarLocalizacao(Localizacao novaLocalizacao, String nomeRebelde) {

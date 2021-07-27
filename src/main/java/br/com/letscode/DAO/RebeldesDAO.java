@@ -178,26 +178,26 @@ public class RebeldesDAO {
         return "Traidor reportado!!! Obrigado por contribuir por uma galaxia melhor.";
     }
 
-    public Integer calculoPontosRebeldes() {
-        List<Rebelde> listaRebeldes = filtrarTraidores();
+    public Integer calculoPontosPerdidosRebeldes() {
+        List<Rebelde> listaTraidores = filtrarRebeldes();
         var valorComida = 1;
         var valorAgua = 2;
         var valorArma = 4;
         var valorMunicao =3;
 
-        List<Integer> listAgua = Rebelde.getRecursosAgua(listaRebeldes);
-        Integer pontosAgua = somarList(listAgua)*valorAgua;
+        List<Integer> listAguaTraidores = Rebelde.getRecursosAgua(listaTraidores);
+        Integer pontosAguaTraidores = somarList(listAguaTraidores)*valorAgua;
 
-        List<Integer> listComida = Rebelde.getRecursosComida(listaRebeldes);
-        Integer pontosComida = somarList(listComida)*valorComida;
+        List<Integer> listComidaTraidores = Rebelde.getRecursosComida(listaTraidores);
+        Integer pontosComidaTraidores = somarList(listComidaTraidores)*valorComida;
 
-        List<Integer> listArma = Rebelde.getRecursosArmas(listaRebeldes);
-        Integer pontosArma = somarList(listArma)*valorArma;
+        List<Integer> listArmaTraidores = Rebelde.getRecursosArmas(listaTraidores);
+        Integer pontosArmaTraidores = somarList(listArmaTraidores)*valorArma;
 
-        List<Integer> listMunicao = Rebelde.getRecursosMunicao(listaRebeldes);
-        Integer pontosMunicao = somarList(listMunicao)*valorMunicao;
+        List<Integer> listMunicaoTraidores = Rebelde.getRecursosMunicao(listaTraidores);
+        Integer pontosMunicaoTraidores = somarList(listMunicaoTraidores)*valorMunicao;
 
-        return pontosComida+pontosArma+pontosMunicao+pontosAgua;
+        return pontosAguaTraidores+pontosComidaTraidores+pontosArmaTraidores+pontosMunicaoTraidores;
     }
 
     public Integer somarList(List<Integer> x){

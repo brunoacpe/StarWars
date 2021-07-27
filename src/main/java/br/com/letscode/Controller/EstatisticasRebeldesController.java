@@ -44,6 +44,6 @@ public class EstatisticasRebeldesController {
     @GetMapping
     @RequestMapping("/pontos")
     public String getQuantidadePontosRebeldes(){
-        return String.format("A quantidade de pontos que os rebeldes ja acumularam pela galaxia é de: %d, parabéns rebeldes.",rebeldesServices.getQuantidadePontos());
+        return String.format("A quantidade de pontos que os rebeldes ja perderam para os traidores é de: %d.",rebeldesServices.getQuantidadePontos());
     }
 }
