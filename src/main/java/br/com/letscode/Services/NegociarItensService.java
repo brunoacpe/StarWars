@@ -55,12 +55,14 @@ public class NegociarItensService {
             rebelde1.get().getRecursos().setMunicao(Math.toIntExact(rebelde1.get().getRecursos().getMunicao() + listaDoRebelde2.getMunicao() - listaDoRebelde1.getMunicao()));
             rebelde1.get().getRecursos().setComida(Math.toIntExact(rebelde1.get().getRecursos().getComida() + listaDoRebelde2.getComida() - listaDoRebelde1.getComida()));
             rebelde1.get().getRecursos().setArma(Math.toIntExact(rebelde1.get().getRecursos().getArma() + listaDoRebelde2.getArma() - listaDoRebelde1.getArma()));
+            negociarItensService.atualizarIventario(rebelde1.get().getRecursos(),rebelde1.get().getNome());
 
             //================ (+) INVENTÁRIO REBELDES 2
             rebelde2.get().getRecursos().setAgua(Math.toIntExact(rebelde2.get().getRecursos().getAgua() + listaDoRebelde1.getAgua() - listaDoRebelde2.getAgua()));
             rebelde2.get().getRecursos().setArma(Math.toIntExact(rebelde2.get().getRecursos().getArma() + listaDoRebelde1.getArma() - listaDoRebelde2.getArma()));
             rebelde2.get().getRecursos().setMunicao(Math.toIntExact(rebelde2.get().getRecursos().getMunicao() + listaDoRebelde1.getMunicao() - listaDoRebelde2.getMunicao()));
             rebelde2.get().getRecursos().setComida(Math.toIntExact(rebelde2.get().getRecursos().getComida() + listaDoRebelde1.getComida() - listaDoRebelde2.getComida()));
+            negociarItensService.atualizarIventario(rebelde2.get().getRecursos(),rebelde2.get().getNome());
 
             return true;
         }
