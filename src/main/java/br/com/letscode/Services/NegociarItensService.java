@@ -70,10 +70,10 @@ public class NegociarItensService {
     }
 
     public boolean verificacaoDeValidadeDaLista(Optional<Rebelde> rebelde, Recursos listaDoRebelde){
-        boolean verificacaoArma = rebelde.get().getRecursos().getArma() <= listaDoRebelde.getArma();
-        boolean verificaoMunicao = rebelde.get().getRecursos().getMunicao() <= listaDoRebelde.getMunicao();
-        boolean verificacoAgua = rebelde.get().getRecursos().getAgua() <= listaDoRebelde.getAgua();
-        boolean verificacaoComida = rebelde.get().getRecursos().getComida() <= listaDoRebelde.getComida();
+        boolean verificacaoArma = rebelde.get().getRecursos().getArma() >= listaDoRebelde.getArma();
+        boolean verificaoMunicao = rebelde.get().getRecursos().getMunicao() >= listaDoRebelde.getMunicao();
+        boolean verificacoAgua = rebelde.get().getRecursos().getAgua() >= listaDoRebelde.getAgua();
+        boolean verificacaoComida = rebelde.get().getRecursos().getComida() >= listaDoRebelde.getComida();
         return verificacaoArma && verificaoMunicao && verificacoAgua && verificacaoComida;
     }
 }
