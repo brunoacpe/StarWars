@@ -1,0 +1,2 @@
+Bruno Augusto;Masculino;alguma galaxia;2;3;1;1;1;1;0;false
+Felipe;Masculino;alguma galaxia;10;12;1;1;1;1;3;true
