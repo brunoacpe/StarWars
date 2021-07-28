@@ -77,27 +77,25 @@ public class RebeldesDAO {
     }
 
     public Float getPorcentagemTraidores() {
+        List<Rebelde> rebeldeList = lerArquivo();
+        List<Rebelde> traidoresList =  rebeldeList
+                .stream()
+                .filter(Rebelde::isTraitor)
+                .collect(Collectors.toList());
 
-        List<Rebelde> traidoresList = filtrarRebeldes();
+        int numTraidores = traidoresList.size();
+        int total = rebeldeList.size();
 
-        if(traidoresList.isEmpty()){
-            //todo -- retornar erro que diz que não existem traidores na galaxia.
-        }
-        //TODO -- CALCULO DE PORCENTAGEM DE TRAIDORES >>
-        //float porcentagemTraidores = (traidoresList.size()*100)/(rebeldeList.size()*100);
-        return null;
+        int porcentagemTraidores = (numTraidores * 100) / total;
+
+        return Float.valueOf(porcentagemTraidores);
     }
 
-    public Float getPorcentagemRebeldes(){
-
-        List<Rebelde> rebeldeList = filtrarTraidores();
-
-        //TODO --- CALCULO DE PORCENTAGEM DE REBELDES NA LISTA;
-
-        int numeroTotal = rebeldeList.size()*100;
-        float numeroTraidores = getPorcentagemTraidores();
-        return numeroTotal-numeroTraidores;
+    public Float getPorcentagemRebeldes() {
+        Float porcentagemRebeldes = 100 - getPorcentagemTraidores();
+        return porcentagemRebeldes;
     }
+
     public List<Rebelde> filtrarTraidores(){
         List<Rebelde> list = lerArquivo();
         return list.stream().filter(t -> !(t.isTraitor())).collect(Collectors.toList());
