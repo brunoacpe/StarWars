@@ -4,6 +4,7 @@ package br.com.letscode.DAO;
 import br.com.letscode.Model.Localizacao;
 import br.com.letscode.Model.Rebelde;
 import br.com.letscode.Model.Recursos;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
@@ -20,6 +21,7 @@ import java.util.StringTokenizer;
 import java.util.stream.Collectors;
 
 @Component
+@Slf4j
 public class RebeldesDAO {
 
     private static final String  caminho = "src\\main\\resources\\data\\rebeldes.txt";
@@ -36,6 +38,7 @@ public class RebeldesDAO {
             rebeldesList = br.lines().map(this::converterLinhaEmRebelde)
                     .collect(Collectors.toList());
         } catch (IOException e) {
+            log.error("Não foi possivel acessar o arquivo.");
             e.printStackTrace();
         }
         return rebeldesList;
@@ -50,8 +53,8 @@ public class RebeldesDAO {
         novoRebelde.setNome(st.nextToken());
         novoRebelde.setGenero(st.nextToken());
         novoRebelde.getLocalizacao().setNomeGalaxia(st.nextToken());
-        novoRebelde.getLocalizacao().setLatitude(Long.parseLong(st.nextToken()));
-        novoRebelde.getLocalizacao().setLongitude(Long.parseLong(st.nextToken()));
+        novoRebelde.getLocalizacao().setLatitude(Float.parseFloat(st.nextToken()));
+        novoRebelde.getLocalizacao().setLongitude(Float.parseFloat(st.nextToken()));
         novoRebelde.getRecursos().setArma(Integer.parseInt(st.nextToken()));
         novoRebelde.getRecursos().setMunicao(Integer.parseInt(st.nextToken()));
         novoRebelde.getRecursos().setComida(Integer.parseInt(st.nextToken()));
@@ -65,7 +68,9 @@ public class RebeldesDAO {
 
         try(var bf = Files.newBufferedWriter(pathRebeldes, StandardOpenOption.APPEND)){
             bf.write(formatar(novoRebelde));
+            log.info("O novo rebelde {} foi cadastrado.",novoRebelde.getNome());
         } catch (IOException e) {
+            log.error("Não foi possivel acessar o arquivo.");
             e.printStackTrace();
         }
         return novoRebelde;
@@ -73,7 +78,7 @@ public class RebeldesDAO {
     }
 
     private String formatar(Rebelde novoRebelde) {
-        return String.format("%s;%s;%s;%d;%d;%s;%s;%s;%s;%s;%s\r\n",novoRebelde.getNome(),novoRebelde.getGenero(),novoRebelde.getLocalizacao().getNomeGalaxia(),novoRebelde.getLocalizacao().getLatitude(),novoRebelde.getLocalizacao().getLongitude(),novoRebelde.getRecursos().getArma(),novoRebelde.getRecursos().getMunicao(),novoRebelde.getRecursos().getComida(),novoRebelde.getRecursos().getAgua(),novoRebelde.getReports(),novoRebelde.isTraitor());
+        return String.format("%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s\r\n",novoRebelde.getNome(),novoRebelde.getGenero(),novoRebelde.getLocalizacao().getNomeGalaxia(),novoRebelde.getLocalizacao().getLatitude().toString(),novoRebelde.getLocalizacao().getLongitude().toString(),novoRebelde.getRecursos().getArma(),novoRebelde.getRecursos().getMunicao(),novoRebelde.getRecursos().getComida(),novoRebelde.getRecursos().getAgua(),novoRebelde.getReports(),novoRebelde.isTraitor());
     }
 
     public Float getPorcentagemTraidores() {
@@ -139,6 +144,7 @@ public class RebeldesDAO {
         try{
             Files.delete(pathRebeldes);
         } catch(IOException ex){
+            log.error("Não foi possivel acessar o arquivo.");
             ex.printStackTrace();
         }
 
@@ -146,6 +152,7 @@ public class RebeldesDAO {
             PrintWriter printWriter = new PrintWriter("src\\main\\resources\\data\\rebeldes.txt", StandardCharsets.UTF_8);
             printWriter.close();
         } catch (IOException e){
+            log.error("Não foi possivel acessar o arquivo.");
             e.printStackTrace();
         }
 
@@ -159,11 +166,13 @@ public class RebeldesDAO {
 
         for(Rebelde r: rebeldeList){
             if(r.getNome().equalsIgnoreCase(nomeReportado)&&r.isTraitor()){
+                log.warn("Report em um rebelde que já é traidor.");
                 return "Já temos a informação de que este rebelde se tornou um traidor.";
             }
             if (r.getNome().equals(nomeReportado)&&!(r.isTraitor())){
                 r.setReports(r.getReports()+1);
                 if(r.getReports()==3){
+                    log.info("{} se tornou um traidor.",nomeReportado);
                     r.setTraitor(true);
                     escreverListaNoArquivo(rebeldeList);
                     return "Este rebelde recebeu 3 reports. A partir de hoje ele é considerado um traidor !";

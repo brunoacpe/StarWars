@@ -19,6 +19,9 @@
         <spring-native.version>0.10.2-SNAPSHOT</spring-native.version>
     </properties>
     <dependencies>
+
+
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
