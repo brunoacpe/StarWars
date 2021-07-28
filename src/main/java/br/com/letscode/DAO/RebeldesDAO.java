@@ -223,4 +223,20 @@ public class RebeldesDAO {
         return "Você não vai conseguir atualizar sua localização, traidor.";
 
     }
+
+    public String atualizarIventario(Recursos recursos, String nomeRebelde) {
+        List<Rebelde> list = lerArquivo();
+        if(list.stream().filter(n -> n.getNome().equalsIgnoreCase(nomeRebelde)).findAny().isEmpty()){
+            return "Não existe nenhum rebelde com este nome.";
+        }
+        for(Rebelde r: list){
+            if(r.getNome().equalsIgnoreCase(nomeRebelde)&&!(r.isTraitor())){
+                r.setRecursos(recursos);
+                escreverListaNoArquivo(list);
+                return "Recursos atualizados !!!";
+            }
+        }
+        return "Você não vai conseguir atualizar seus recursos, traidor.";
+
+    }
 }

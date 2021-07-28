@@ -4,6 +4,7 @@ package br.com.letscode.Services;
 import br.com.letscode.DAO.RebeldesDAO;
 import br.com.letscode.Model.Localizacao;
 import br.com.letscode.Model.Rebelde;
+import br.com.letscode.Model.Recursos;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -49,5 +50,9 @@ public class RebeldesServices {
 
     public String atualizarLocalizacao(Localizacao novaLocalizacao, String nomeRebelde) {
         return rebeldesDAO.atualizarLocalizacao(novaLocalizacao,nomeRebelde);
+    }
+
+    public String atualizarIventario(Recursos recursos, String nomeRebelde){
+        return rebeldesDAO.atualizarIventario(recursos,nomeRebelde);
     }
 }
