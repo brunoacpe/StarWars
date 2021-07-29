@@ -20,7 +20,6 @@ public class EstatisticasRebeldesController {
         this.rebeldesServices = rebeldesServices;
     }
 
-
     @GetMapping
     @RequestMapping("/traidores")
     public String getPorcentagemTraidores(){

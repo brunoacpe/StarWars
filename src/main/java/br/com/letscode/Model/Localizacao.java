@@ -13,7 +13,7 @@ import lombok.Setter;
 public class Localizacao {
 
     private String nomeGalaxia;
-    private Long latitude;
-    private Long longitude;
+    private Float latitude;
+    private Float longitude;
 
 }
