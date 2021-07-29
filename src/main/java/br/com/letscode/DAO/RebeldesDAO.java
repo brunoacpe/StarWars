@@ -20,8 +20,8 @@ import java.util.List;
 import java.util.StringTokenizer;
 import java.util.stream.Collectors;
 
-@Component
 @Slf4j
+@Component
 public class RebeldesDAO {
 
     private static final String  caminho = "src\\main\\resources\\data\\rebeldes.txt";

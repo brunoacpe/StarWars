@@ -1,4 +1,2 @@
-Décio;Masculino;Taubaté;12,2222;13,2222;0;0;0;0;0;false
-Décio;Masculino;Taubaté;12,2222;13,2222;0;0;0;0;0;false
-string;string;string;12.5543;0.2123;0;0;0;0;0;false
-string;string;string;12.5543;0.2123;0;0;0;0;0;false
+Bruno;Masculino;Bahia;12.0;5.74655;2;2;2;2;0;false
+Felipe;Masculino;São Paulo;7.0495;-3.2423;4;4;4;4;3;true

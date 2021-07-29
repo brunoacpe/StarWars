@@ -1,14 +1,10 @@
 package br.com.letscode.Services;
 
-import br.com.letscode.DAO.RebeldesDAO;
 import br.com.letscode.Model.ArrayDeRecursos;
 import br.com.letscode.Model.Rebelde;
 import br.com.letscode.Model.Recursos;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 @Component

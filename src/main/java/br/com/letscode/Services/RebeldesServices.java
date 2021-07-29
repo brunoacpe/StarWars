@@ -1,6 +1,5 @@
 package br.com.letscode.Services;
 
-
 import br.com.letscode.DAO.RebeldesDAO;
 import br.com.letscode.Model.Localizacao;
 import br.com.letscode.Model.Rebelde;
