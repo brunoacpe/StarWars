@@ -21,7 +21,7 @@ public class Rebelde {
     private Localizacao localizacao;
     private Recursos recursos;
     private Integer reports = 0;
-    private boolean isTraitor;
+    private boolean traitor;
 
 
     public static List<Integer> getRecursosArmas(List<Rebelde> rebeldeList){
