@@ -29,7 +29,7 @@ public class RebeldesController {
     }
 
     @GetMapping
-    @ResponseStatus(HttpStatus.ACCEPTED)
+    @ResponseStatus(HttpStatus.OK)
     public List<Rebelde> listarRebeldes(){
         return this.rebeldesServices.listarRebeldes();
     }
@@ -47,7 +47,7 @@ public class RebeldesController {
     }
 
     @PutMapping("/atualizarLocalização")
-    @ResponseStatus(HttpStatus.ACCEPTED)
+    @ResponseStatus(HttpStatus.OK)
     public String atualizarLocalizacaoRebelde(@RequestBody Localizacao localizacao, @RequestParam String nomeRebelde){
         var novaLocalizacao = new Localizacao();
         novaLocalizacao.setNomeGalaxia(localizacao.getNomeGalaxia());
