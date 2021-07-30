@@ -9,6 +9,7 @@ import java.util.List;
 
 @Getter
 @Setter
+@AllArgsConstructor
 public class ArrayDeRecursos {
     Recursos recursos1;
     Recursos recursos2;
