@@ -1,2 +1,4 @@
 Bruno;Masculino;Bahia;12.0;5.74655;2;2;2;2;0;false
+Felipe;Masculino;São Paulo;7.0495;-3.2423;4;4;4;4;0;false
+Felipe;Masculino;São Paulo;7.0495;-3.2423;4;4;4;4;3;true
 Felipe;Masculino;São Paulo;7.0495;-3.2423;4;4;4;4;3;true
